@@ -200,12 +200,8 @@ hysplit_trajectory <- function(lat = 49.263,
       
       # Sort daily starting hours if given as
       # numeric values
-      if (class(daily_hours) == "numeric") {
-        daily_hours <-
-          formatC(sort(daily_hours),
-                  width = 2,
-                  flag = 0)
-      }
+      daily_hours <-
+          sprintf("%02d", daily_hours)
       
       # Make nested loop with daily beginning hours
       for (j in daily_hours) {    
