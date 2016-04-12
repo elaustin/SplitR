@@ -25,10 +25,11 @@
 #' \code{backward} directions.
 #' @param met_type an option to select meteorological
 #' data files. The options are \code{gdas1} (Global
-#' Data Assimilation System 1-degree resolution data), 
+#' Data Assimilation System 1-degree resolution data), \code{edas40} 
+#' (Eta Data Assimilation System (EDAS40) Archive Informationa),
 #' \code{reanalysis} (NCAR/NCEP global reanalysis
 #' data), and \code{narr} (North American Regional 
-#' Reanalysis). 
+#' Reanalysis).
 #' @param vert_motion a numbered option to
 #' select the method used to simulation vertical
 #' motion. The methods are: \code{0} (input model
@@ -364,6 +365,50 @@ hysplit_trajectory <- function(lat = 49.263,
               substr(tolower(format(start_time_GMT,
                                     "%B")), 1, 3),
               substr(year(start_time_GMT), 3, 4), ".w3"))
+        
+        # Get vector list of met files to run EDAS40
+        if (case_within_month &
+            met_type == "edas40") met <- 
+          c(paste0(
+            "edas.",
+            substr(tolower(format(start_time_GMT,
+                                  "%B")), 1, 3),
+            substr(year(start_time_GMT), 3, 4), ".001"),                                      
+            paste0(
+              "edas.",
+              substr(tolower(format(start_time_GMT,
+                                    "%B")), 1, 3),
+              substr(year(start_time_GMT), 3, 4), ".002"))
+        
+        if (case_over_year &
+            met_type == "edas40") met <- 
+          c(paste0(
+            "edas.dec",
+            substr(year(end_time_GMT), 3, 4), ".002"),
+            paste0(
+              "edas.jan",
+              substr(year(start_time_GMT), 3, 4), ".001"),
+            paste0(
+              "edas.jan",
+              substr(year(start_time_GMT), 3, 4), ".002"))
+        
+        if (case_over_month &
+            met_type == "edas40") met <-
+          c(paste0(
+            "edas",
+            substr(tolower(format(end_time_GMT,
+                                  "%B")), 1, 3),
+            substr(year(end_time_GMT), 3, 4), ".002"),                                      
+            paste0(
+              "edas",
+              substr(tolower(format(start_time_GMT,
+                                    "%B")), 1, 3),
+              substr(year(start_time_GMT), 3, 4), ".001"),
+            paste0(
+              "gdas1.",
+              substr(tolower(format(start_time_GMT,
+                                    "%B")), 1, 3),
+              substr(year(start_time_GMT), 3, 4), ".002"))
         
         # Get vector lists of met files applicable to run
         # from the NCEP/NCAR reanalysis dataset
