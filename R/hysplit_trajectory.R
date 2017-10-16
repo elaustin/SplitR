@@ -81,7 +81,7 @@ hysplit_trajectory <- function(lat = 49.263,
   if (length(run_period) == 1 &
       class(run_period) == "character" &
       all(grepl("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]",
-            run_period))) {
+                run_period))) {
     
     run_type <- "day"
     run_day <- run_period
@@ -90,7 +90,7 @@ hysplit_trajectory <- function(lat = 49.263,
   if (length(run_period) == 2 &
       class(run_period) == "character" &
       all(grepl("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]",
-            run_period))) {
+                run_period))) {
     
     run_type <- "range"
     run_range <- run_period
@@ -134,7 +134,7 @@ hysplit_trajectory <- function(lat = 49.263,
   # For every set of coordinates, perform a set
   # of model runs
   for (z in 1:length(coords$lat)) {
-  
+    
     if (z == 1) ensemble_df <- data.frame()
     
     # Determine whether the run_years input is a single
@@ -405,7 +405,7 @@ hysplit_trajectory <- function(lat = 49.263,
                                     "%B")), 1, 3),
               substr(year(start_time_GMT), 3, 4), ".001"),
             paste0(
-              "gdas1.",
+              "edas",
               substr(tolower(format(start_time_GMT,
                                     "%B")), 1, 3),
               substr(year(start_time_GMT), 3, 4), ".002"))
@@ -560,7 +560,7 @@ hysplit_trajectory <- function(lat = 49.263,
             
             if (met_type == "narr") {
               get_met_narr(files = files_to_get,
-                                 path_met_files = getwd())
+                           path_met_files = getwd())
             }
             
             if (met_type == "gdas1") {
