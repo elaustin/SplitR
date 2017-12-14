@@ -126,6 +126,16 @@ trajectory_plot_mine <- function(traj_df_list,
           color = colors[(1:length(unique(names(traj_df_list))))
                          [names(traj_df_list)[j]==unique(names(traj_df_list))]],
           popup = popup)
+      traj_plot <- 
+        addCircleMarkers(
+          traj_plot,
+          wind_trajectories_by_date[[i]][,"lon"],
+          wind_trajectories_by_date[[i]][,"lat"],
+          group = traj_names[j],
+          label = wind_trajectories_by_date[[i]][,"hour.inc"]
+        )
+          
+      
     }
   }
   traj_plot <-
