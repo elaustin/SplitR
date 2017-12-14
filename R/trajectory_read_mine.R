@@ -1,4 +1,6 @@
-trajectory_read_mine <- function (output_folder, year = NULL, start_height_m_AGL = NULL) 
+trajectory_read_mine <- function (output_folder, year = NULL, 
+                                  start_height_m_AGL = NULL,
+                                  local_tz = "America/Los_Angeles") 
 {
   trajectory_file_list <- list.files(output_folder)
   if (is.null(year) & is.null(start_height_m_AGL)) {
@@ -65,7 +67,7 @@ trajectory_read_mine <- function (output_folder, year = NULL, start_height_m_AGL
                                                             2] + 2000, traj[1, 2] + 1900), traj[1, 3], traj[1, 
                                                                                                             4], traj[1, 5], min = 0, sec = 0, tz = "GMT")
       
-      traj$date_local<-with_tz(traj$date,"America/Los_Angeles")
+      traj$date_local<-with_tz(traj$date,local_tz)
       
       if (any(is.na(traj[, 1]))) {
         traj <- traj[-which(is.na(traj[, 1])), ]
