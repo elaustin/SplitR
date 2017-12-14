@@ -22,6 +22,7 @@ trajectory_plot_mine <- function(traj_df_list,
                                  color_scheme = "cycle_hues"){
   
   traj_names=names(traj_df_list)
+  
   j=1
   traj_df<-traj_df_list[[j]]
   
@@ -126,6 +127,25 @@ trajectory_plot_mine <- function(traj_df_list,
           color = colors[(1:length(unique(names(traj_df_list))))
                          [names(traj_df_list)[j]==unique(names(traj_df_list))]],
           popup = popup)
+      
+      traj_plot <- 
+        addCircleMarkers(
+          traj_plot,
+          radius= 3,
+          fillOpacity = 1,
+          stroke = FALSE,
+          fillColor = colors[(1:length(unique(names(traj_df_list))))
+                         [names(traj_df_list)[j]==unique(names(traj_df_list))]],
+          wind_trajectories_by_date[[i]][,"lon"],
+          wind_trajectories_by_date[[i]][,"lat"],
+          group = traj_names[j],
+          label = wind_trajectories_by_date[[i]][,"hour.inc"],
+          popup = paste("Time Point:",
+                        wind_trajectories_by_date[[i]][,"date_local"] +
+                        wind_trajectories_by_date[[i]][,"hour.inc"]*60*60)
+        )
+          
+      
     }
   }
   traj_plot <-
@@ -136,7 +156,7 @@ trajectory_plot_mine <- function(traj_df_list,
                      "CartoDB Dark Matter",
                      "Stamen Toner",
                      "ESRI World Terrain"),
-      overlayGroups = traj_names)
+      overlayGroups = c("traj_names","traj_circles"))
   
   traj_plot
 }
